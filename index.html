@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebDis — LLVM Web Disassembler</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Toolbar -->
+  <div id="toolbar">
+    <div class="toolbar-brand">⚡ WebDis</div>
+    <div class="toolbar-sep"></div>
+    <button id="btnOpen" title="Open binary file (Ctrl+O)">📂 Open</button>
+    <button id="btnRefresh" title="Re-analyze" disabled>↻ Re-analyze</button>
+    <button id="btnClearCache" title="Clear cached analysis">🗑 Clear Cache</button>
+    <div class="toolbar-sep"></div>
+    <span class="toolbar-label">Go to:</span>
+    <input id="gotoInput" type="text" placeholder="0x401000 or func name" title="Jump to address or function name">
+    <button id="btnGoto" title="Navigate to address/function (Enter)">→</button>
+    <div class="toolbar-sep"></div>
+    <select id="archSelect" title="Architecture">
+      <option value="auto">Auto-detect</option>
+      <option value="x64">x86-64</option>
+      <option value="x32">x86-32</option>
+      <option value="arm64">ARM64</option>
+      <option value="arm">ARM</option>
+    </select>
+    <input type="file" id="fileInput" hidden accept="*/*">
+  </div>
+
+  <!-- Main layout -->
+  <div id="layout">
+    <!-- Left: Navigation panel -->
+    <div id="left-panel" class="panel">
+      <div class="panel-tabs" id="leftTabs">
+        <button class="tab-btn active" data-tab="functions">Functions</button>
+        <button class="tab-btn" data-tab="strings">Strings</button>
+        <button class="tab-btn" data-tab="imports">Imports</button>
+        <button class="tab-btn" data-tab="sections">Sections</button>
+      </div>
+      <div class="panel-search">
+        <input id="navSearch" type="text" placeholder="Filter...">
+      </div>
+      <div id="nav-body" class="scroll-area">
+        <div id="tab-functions" class="tab-content active"></div>
+        <div id="tab-strings" class="tab-content"></div>
+        <div id="tab-imports" class="tab-content"></div>
+        <div id="tab-sections" class="tab-content"></div>
+      </div>
+    </div>
+
+    <!-- Resize handle -->
+    <div class="resize-handle" id="leftResize"></div>
+
+    <!-- Center: Disassembly view -->
+    <div id="center-panel">
+      <div id="disasm-toolbar">
+        <span id="funcLabel" class="func-label">—</span>
+        <span class="flex-spacer"></span>
+        <label><input type="checkbox" id="showBytes"> Bytes</label>
+        <label><input type="checkbox" id="showComments" checked> Comments</label>
+      </div>
+      <div id="disasm-view" class="scroll-area">
+        <!-- Welcome screen -->
+        <div id="welcome">
+          <div class="welcome-icon">⚡</div>
+          <h2>WebDis — LLVM Web Disassembler</h2>
+          <p>Drop a binary file here, or click <strong>Open</strong> to get started.</p>
+          <div class="welcome-features">
+            <div class="feature">✓ ELF / PE / Mach-O parsing</div>
+            <div class="feature">✓ x86-64 / ARM64 disassembly</div>
+            <div class="feature">✓ Function detection &amp; boundaries</div>
+            <div class="feature">✓ Cross-references (xrefs)</div>
+            <div class="feature">✓ String extraction</div>
+            <div class="feature">✓ IndexedDB analysis cache</div>
+          </div>
+          <button id="welcomeOpen" class="btn-large">📂 Open Binary</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resize handle -->
+    <div class="resize-handle" id="rightResize"></div>
+
+    <!-- Right: Details panel -->
+    <div id="right-panel" class="panel">
+      <div class="panel-tabs" id="rightTabs">
+        <button class="tab-btn active" data-tab="xrefs">XRefs</button>
+        <button class="tab-btn" data-tab="info">Info</button>
+        <button class="tab-btn" data-tab="hex">Hex</button>
+      </div>
+      <div id="right-body" class="scroll-area">
+        <div id="tab-xrefs" class="tab-content active">
+          <div class="empty-state">Select an instruction to see cross-references</div>
+        </div>
+        <div id="tab-info" class="tab-content"></div>
+        <div id="tab-hex" class="tab-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status bar -->
+  <div id="statusbar">
+    <span id="sb-cursor">Ready</span>
+    <span class="sb-sep"></span>
+    <span id="sb-file"></span>
+    <span class="flex-spacer"></span>
+    <span id="sb-arch"></span>
+    <span class="sb-sep"></span>
+    <span id="sb-progress"></span>
+  </div>
+
+  <!-- Drop overlay -->
+  <div id="drop-overlay" hidden>
+    <div>Drop binary file to analyze</div>
+  </div>
+
+  <!-- Loading overlay -->
+  <div id="loading-overlay" hidden>
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <div id="loading-text">Analyzing...</div>
+      <div id="loading-progress"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
