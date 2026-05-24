@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Toolbar -->
   <div id="toolbar">
     <div class="toolbar-brand">⚡ WebDis</div>
     <div class="toolbar-sep"></div>
@@ -30,9 +29,7 @@
     <input type="file" id="fileInput" hidden accept="*/*">
   </div>
 
-  <!-- Main layout -->
   <div id="layout">
-    <!-- Left: Navigation panel -->
     <div id="left-panel" class="panel">
       <div class="panel-tabs" id="leftTabs">
         <button class="tab-btn active" data-tab="functions">Functions</button>
@@ -51,10 +48,8 @@
       </div>
     </div>
 
-    <!-- Resize handle -->
     <div class="resize-handle" id="leftResize"></div>
 
-    <!-- Center: Disassembly view -->
     <div id="center-panel">
       <div id="disasm-toolbar">
         <span id="funcLabel" class="func-label">—</span>
@@ -63,7 +58,6 @@
         <label><input type="checkbox" id="showComments" checked> Comments</label>
       </div>
       <div id="disasm-view" class="scroll-area">
-        <!-- Welcome screen -->
         <div id="welcome">
           <div class="welcome-icon">⚡</div>
           <h2>WebDis — LLVM Web Disassembler</h2>
@@ -81,10 +75,8 @@
       </div>
     </div>
 
-    <!-- Resize handle -->
     <div class="resize-handle" id="rightResize"></div>
 
-    <!-- Right: Details panel -->
     <div id="right-panel" class="panel">
       <div class="panel-tabs" id="rightTabs">
         <button class="tab-btn active" data-tab="xrefs">XRefs</button>
@@ -101,7 +93,6 @@
     </div>
   </div>
 
-  <!-- Status bar -->
   <div id="statusbar">
     <span id="sb-cursor">Ready</span>
     <span class="sb-sep"></span>
@@ -112,12 +103,10 @@
     <span id="sb-progress"></span>
   </div>
 
-  <!-- Drop overlay -->
   <div id="drop-overlay" hidden>
     <div>Drop binary file to analyze</div>
   </div>
 
-  <!-- Loading overlay -->
   <div id="loading-overlay" hidden>
     <div class="loading-box">
       <div class="spinner"></div>
